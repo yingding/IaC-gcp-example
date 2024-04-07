@@ -43,6 +43,19 @@ resource "google_project_service" "vertex_ai_api" {
   disable_dependent_services = true
 }
 
+# notebook api
+resource "google_project_service" "notebooks_api" {
+  project = var.gcp_project_id
+  service = "notebooks.googleapis.com"
+
+  timeouts {
+    create = "40m"
+    update = "50m"
+  }
+
+  disable_dependent_services = true
+}
+
 
 
 
