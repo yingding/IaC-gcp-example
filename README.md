@@ -83,6 +83,11 @@ terraform plan
 terraform apply
 ```
 
+(Optional) upgrade the provider version
+```shell
+terraform init --upgrade
+```
+
 ## Apply terraform
 terraform will take the variables from either `terraform.tfvars` or `.auto.tfvars`
 

@@ -13,10 +13,28 @@ variable "gcp_zone" {
     type        = string
 }
 
+# tags
+variable "label_owner" {
+    description = "The owner of the resources"
+    type        = string
+}
+
+variable "label_zone" {
+    description = "The deployment landing zone of the resources"
+    type        = string
+}
+
+variable "label_app" {
+    description = "The deployment application purpose of the resources"
+    type        = string
+}
+
 terraform {
   required_providers {
     google = {
-      version = "~> 5.0.0"
+      # google_workbench_instance uses new features in the google provider
+      # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/workbench_instance
+      version = "~> 5.23.0"
     }
   }
 }
@@ -54,6 +72,36 @@ resource "google_project_service" "notebooks_api" {
   }
 
   disable_dependent_services = true
+}
+
+# create a notebook instance
+resource "google_workbench_instance" "notebook_instance_1" {
+  name = "gemini-demo-notebook-1"
+  location = var.gcp_zone
+
+  gce_setup {
+    machine_type = "e2-standard-2" # 2 vCPUs, 8 GB memory $0.1.02 hourly
+    # machine_type = "e2-standard-4" # 4 vCPUs, 16 GB memory $0.182 hourly
+
+    shielded_instance_config {
+      enable_secure_boot = false
+      enable_vtpm = false
+      enable_integrity_monitoring = false
+    }
+
+    metadata = {
+      terraform = "true"
+    }
+
+  }
+
+  labels = {
+    owner = var.label_owner
+    zone = var.label_zone
+    app = var.label_app
+  }
+
+  desired_state = "STOPPED"
 }
 
 
