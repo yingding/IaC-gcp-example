@@ -87,6 +87,19 @@ resource "google_project_service" "cloudasset_api" {
   disable_dependent_services = true
 }
 
+# cloud resource API for access with service account
+resource "google_project_service" "cloudrm_api" {
+  project = var.gcp_project_id
+  service = "cloudresourcemanager.googleapis.com" # free of charge
+
+  timeouts {
+    create = "40m"
+    update = "50m"
+  }
+
+  disable_dependent_services = true
+}
+
 
 # create a notebook instance
 # resource "google_workbench_instance" "notebook_instance_1" {
