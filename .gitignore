@@ -32,3 +32,16 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# remove the terraform state file to be synced to the git repo  
+*.tfstate
+# remove the .auto.tfvars to not sync the provider secrets to the git repo
+.auto.tfvars
+# no state file should be present in the git repo
+terraform.tfstate
+
+terraform.tfvars
+# remove the .auto.tfvars to not sync the provider secrets to the git repo
+.auto.tfvars
+.terraform/
+.terraform.lock.hcl
