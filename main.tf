@@ -74,35 +74,49 @@ resource "google_project_service" "notebooks_api" {
   disable_dependent_services = true
 }
 
-# create a notebook instance
-resource "google_workbench_instance" "notebook_instance_1" {
-  name = "gemini-demo-notebook-1"
-  location = var.gcp_zone
+# AssetInventory API
+resource "google_project_service" "cloudasset_api" {
+  project = var.gcp_project_id
+  service = "cloudasset.googleapis.com" # free of charge
 
-  gce_setup {
-    machine_type = "e2-standard-2" # 2 vCPUs, 8 GB memory $0.1.02 hourly
-    # machine_type = "e2-standard-4" # 4 vCPUs, 16 GB memory $0.182 hourly
-
-    shielded_instance_config {
-      enable_secure_boot = false
-      enable_vtpm = false
-      enable_integrity_monitoring = false
-    }
-
-    metadata = {
-      terraform = "true"
-    }
-
+  timeouts {
+    create = "40m"
+    update = "50m"
   }
 
-  labels = {
-    owner = var.label_owner
-    zone = var.label_zone
-    app = var.label_app
-  }
-
-  desired_state = "STOPPED"
+  disable_dependent_services = true
 }
+
+
+# create a notebook instance
+# resource "google_workbench_instance" "notebook_instance_1" {
+#   name = "gemini-demo-notebook-1"
+#   location = var.gcp_zone
+
+#   gce_setup {
+#     machine_type = "e2-standard-2" # 2 vCPUs, 8 GB memory $0.1.02 hourly
+#     # machine_type = "e2-standard-4" # 4 vCPUs, 16 GB memory $0.182 hourly
+
+#     shielded_instance_config {
+#       enable_secure_boot = false
+#       enable_vtpm = false
+#       enable_integrity_monitoring = false
+#     }
+
+#     metadata = {
+#       terraform = "true"
+#     }
+
+#   }
+
+#   labels = {
+#     owner = var.label_owner
+#     zone = var.label_zone
+#     app = var.label_app
+#   }
+
+#   desired_state = "STOPPED"
+# }
 
 
 
