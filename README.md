@@ -56,7 +56,7 @@ PROJECT_ID=$(gcloud config list --format 'value(core.project)')
 ```
 
 ```shell
-SERVICE_ACCOUNT_NAME=terraform-access
+SERVICE_ACCOUNT_NAME=<sa-name>
 echo ${SERVICE_ACCOUNT_NAME}
 gcloud iam service-accounts create ${SERVICE_ACCOUNT_NAME} \
   --description="service account to access gcp project from remote terraform" \
@@ -71,6 +71,13 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
 ```
 * https://cloud.google.com/vertex-ai/docs/general/access-control
 * https://cloud.google.com/iam/docs/service-accounts-create#gcloud
+
+```shell
+ROLE=roles/editor
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+    --member="serviceAccount:${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com" \
+    --role=${ROLE}
+```
 
 Create a service account key file and save it to your remote workstation
 ```shell
