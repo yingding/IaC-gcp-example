@@ -137,6 +137,7 @@ terraform graph -type=plan | dot -Tpng -o graph.png
 * Authentication GCP - https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference
 * gcp template module - https://github.com/terraform-google-modules/terraform-google-project-factory
 * https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/version_5_upgrade
+* https://stackoverflow.com/questions/57453468/google-cloud-credentials-with-terraform
 
 ## GCP pricing
 * Region picker - https://googlecloudplatform.github.io/region-picker/
