@@ -34,7 +34,7 @@ terraform {
     google = {
       # google_workbench_instance uses new features in the google provider
       # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/workbench_instance
-      version = "~> 5.23.0"
+      version = "~> 5.26.0"
     }
   }
 }
@@ -160,6 +160,9 @@ resource "google_storage_bucket" "sandbox_bucket_1" {
 #   role   = "READER"
 #   entity = "allUsers"
 # }
+
+# firestore database no sql
+# google_datastore_index
 
 
 
