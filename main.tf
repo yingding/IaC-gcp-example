@@ -132,5 +132,35 @@ resource "google_project_service" "cloudrm_api" {
 # }
 
 
+# create a gcs bucket
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket
+# set the Access & Storage Logs be disabled for the bucket sandbox_bucket_1
+resource "google_storage_bucket" "sandbox_bucket_1" {
+  name          = "agentbuilder-sandbox-bucket"
+  location      = "US" #var.gcp_region # "us-central1" as REGIONAL one, "US" will be multi-regional
+  force_destroy = true
+  # public_access_prevention = "inherited" #"enforced"
+  storage_class = "STANDARD"
+  uniform_bucket_level_access = true
+
+  versioning {
+    enabled = false
+  }
+
+  labels = {
+    owner = var.label_owner
+    zone = var.label_zone
+    app = var.label_app
+  }
+}
+
+# create a public read access rule for the bucket
+# resource "google_storage_bucket_access_control" "public_rule_bucket_1" {
+#   bucket = google_storage_bucket.sandbox_bucket_1.name
+#   role   = "READER"
+#   entity = "allUsers"
+# }
+
+
 
 

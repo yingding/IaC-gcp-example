@@ -79,6 +79,13 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
     --role=${ROLE}
 ```
 
+```shell
+ROLE=roles/storage.admin
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+    --member="serviceAccount:${SERVICE_ACCOUNT_NAME}@${PROJECT_ID}.iam.gserviceaccount.com" \
+    --role=${ROLE}
+```
+
 Create a service account key file and save it to your remote workstation
 ```shell
 makedir -p ~/.gcp/
